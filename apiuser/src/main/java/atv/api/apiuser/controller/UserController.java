@@ -4,10 +4,10 @@ import atv.api.apiuser.entity.User;
 import atv.api.apiuser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("api")
@@ -16,8 +16,11 @@ public class UserController {
     UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> sendMessage(@RequestBody User user){
-        userService.sendMessage(user, "POST");
-        return ResponseEntity.ok().body(user);
+    public ResponseEntity<User> createUser(@RequestBody User user){
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(1234)
+                .toUri();
+        return ResponseEntity.created(location).body(userService.createUser(user, "CREATE"));
     }
 }
