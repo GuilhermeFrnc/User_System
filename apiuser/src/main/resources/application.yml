@@ -7,5 +7,15 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
+  datasource:
+    url: jdbc:mysql://localhost:3306/testedb
+    username: root
+    password: 1234567
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
 topic:
   message-action-user: topic_message_action_user

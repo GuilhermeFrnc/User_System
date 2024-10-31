@@ -2,6 +2,7 @@ package atv.api.apiuser.service;
 
 import atv.api.apiuser.entity.Address;
 import atv.api.apiuser.entity.User;
+import atv.api.apiuser.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,29 @@ public class UserService {
     private KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     public UserService(AddressService addressService) {
         this.addressService = addressService;
     }
 
+
     public User createUser(User user, String action){
+        sendMessage(user.getName(), action);
+
+        User savedUser = userRepository.save(user);
+        logger.info("User saved: {}", savedUser);
+
+        return savedUser;
+    }
+
+
+
+
+
+
+    public User creat(User user, String action){
         Address address = findAddress(user.getCep());
         user.setAddress(address);
         sendMessage(user.getName(), action);
