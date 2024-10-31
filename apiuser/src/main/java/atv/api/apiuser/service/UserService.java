@@ -31,8 +31,9 @@ public class UserService {
 
 
     public User createUser(User user, String action){
+        Address address = findAddress(user.getCep());
+        user.setAddress(address);
         sendMessage(user.getName(), action);
-
         User savedUser = userRepository.save(user);
         logger.info("User saved: {}", savedUser);
 

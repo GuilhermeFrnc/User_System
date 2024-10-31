@@ -26,6 +26,7 @@ public class User {
     @Column(nullable = false, length = 50)
     private String cep;
 
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
     private Address address;
 }
