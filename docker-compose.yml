@@ -50,6 +50,16 @@ services:
     ports:
       - 8080:8080
 
+  notify:
+    build:
+      context: ./notify
+      dockerfile: Dockerfile
+    image: apinotify/notify:1.0
+    networks:
+      - broker
+    ports:
+      - 8081:8081
+
 volumes:
   dbdata:
 
