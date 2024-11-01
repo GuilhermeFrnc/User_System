@@ -1,11 +1,9 @@
 spring:
   kafka:
-    consumer:
+    producer:
       bootstrap-servers: kafka:29092
-      group-id: group_id
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
   datasource:
     url: jdbc:mysql://db:3306/userdb?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true

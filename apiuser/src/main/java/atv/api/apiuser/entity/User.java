@@ -24,7 +24,6 @@ public class User {
 
     @NotBlank(message = "Email cannot be empty")
     @Size(max = 50, message = "Email must be less than 50 characters")
-    @Email
     @Column(nullable = false, length = 50)
     private String email;
 
