@@ -1,7 +1,7 @@
-package atv.api.apiuser.controller.dto.mapper;
+package atv.api.apiuser.web.dto.mapper;
 
-import atv.api.apiuser.controller.dto.UserRequestDto;
-import atv.api.apiuser.controller.dto.UserResponseDto;
+import atv.api.apiuser.web.dto.UserRequestDto;
+import atv.api.apiuser.web.dto.UserResponseDto;
 import atv.api.apiuser.entity.User;
 import org.springframework.stereotype.Component;
 

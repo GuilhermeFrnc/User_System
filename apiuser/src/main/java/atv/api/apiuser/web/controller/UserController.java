@@ -1,10 +1,11 @@
-package atv.api.apiuser.controller;
+package atv.api.apiuser.web.controller;
 
-import atv.api.apiuser.controller.dto.UserRequestDto;
-import atv.api.apiuser.controller.dto.UserResponseDto;
-import atv.api.apiuser.controller.dto.mapper.UserMapper;
+import atv.api.apiuser.web.dto.UserRequestDto;
+import atv.api.apiuser.web.dto.UserResponseDto;
+import atv.api.apiuser.web.dto.mapper.UserMapper;
 import atv.api.apiuser.entity.User;
 import atv.api.apiuser.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +22,9 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    @PostMapping
-    public ResponseEntity<UserResponseDto> create(@RequestBody UserRequestDto userRequestDto) {
+    @PostMapping("/users/register")
+    public ResponseEntity<UserResponseDto> create(@Valid @RequestBody UserRequestDto userRequestDto) {
         User user = userMapper.toEntity(userRequestDto);
-
         User savedUser = userService.createUser(user, "CREATE");
         UserResponseDto userResponseDto = userMapper.toResponseDto(savedUser);
 

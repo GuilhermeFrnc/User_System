@@ -1,4 +1,4 @@
-package atv.api.apiuser.controller.dto;
+package atv.api.apiuser.web.dto;
 
 import lombok.Data;
 
