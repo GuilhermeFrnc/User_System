@@ -1,51 +1,43 @@
 package atv.api.apiuser.entity;
 
-import java.util.Objects;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity(name="users")
 public class User {
-    String name;
-    String email;
-    String password;
-    Integer cep;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private  Long id;
 
-    public User(String name, String email, String password, Integer cep) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.cep = cep;
-    }
-    public User() {
-    }
+    @NotBlank(message = "Name cannot be empty")
+    @Size(max = 50, message = "Name must be less than 50 characters")
+    @Column(nullable = false, length = 50)
+    private String name;
 
-    public String getName() {
-        return name;
-    }
+    @NotBlank(message = "Email cannot be empty")
+    @Size(max = 50, message = "Email must be less than 50 characters")
+    @Column(nullable = false, length = 50)
+    private String email;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @NotBlank(message = "Password cannot be empty")
+    @Size(max = 200, message = "Password must be less than 20 characters")
+    @Column(nullable = false, length = 200)
+    private String password;
 
-    public String getEmail() {
-        return email;
-    }
+    @NotBlank(message = "CEP cannot be empty")
+    @Size(max = 50, message = "CEP must be less than 50 characters")
+    @Column(nullable = false, length = 50)
+    private String cep;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getCep() {
-        return cep;
-    }
-
-    public void setCep(Integer cep) {
-        this.cep = cep;
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
 }
