@@ -40,7 +40,7 @@ public class UserController {
     @PutMapping("/users/update-password")
     public ResponseEntity<Void> updatePassword(@RequestBody UserPasswordUpdateRequestDto passwordUpdateRequestDto){
         User user = userMapper.updateEntry(passwordUpdateRequestDto);
-        userService.updatePassword(user);
+        userService.updatePassword(user, "UPDATE");
         return ResponseEntity.noContent().build();
     }
 }
