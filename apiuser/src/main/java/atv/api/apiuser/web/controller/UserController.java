@@ -1,5 +1,6 @@
 package atv.api.apiuser.web.controller;
 
+import atv.api.apiuser.web.dto.UserPasswordUpdateRequestDto;
 import atv.api.apiuser.web.dto.UserRequestDto;
 import atv.api.apiuser.web.dto.UserResponseDto;
 import atv.api.apiuser.web.dto.mapper.UserMapper;
@@ -34,5 +35,12 @@ public class UserController {
                 .toUri();
 
         return ResponseEntity.created(location).body(userResponseDto);
+    }
+
+    @PutMapping("/users/update-password")
+    public ResponseEntity<Void> updatePassword(@RequestBody UserPasswordUpdateRequestDto passwordUpdateRequestDto){
+        User user = userMapper.updateEntry(passwordUpdateRequestDto);
+        userService.updatePassword(user);
+        return ResponseEntity.noContent().build();
     }
 }

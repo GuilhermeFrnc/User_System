@@ -3,6 +3,7 @@ package atv.api.apiuser.service;
 import atv.api.apiuser.entity.Address;
 import atv.api.apiuser.entity.User;
 import atv.api.apiuser.exception.DatabaseException;
+import atv.api.apiuser.exception.InvalidPasswordException;
 import atv.api.apiuser.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -52,6 +55,20 @@ public class UserService {
 
     public Address findAddress(String cep) {
         return addressService.getAddressByCep(cep);
+    }
+
+
+    public Void updatePassword(User user){
+        Optional<User> optionalUser = userRepository.findByNameAndPassword(user.getName(), user.getOldPassword());
+
+        if (!optionalUser.isPresent()) {
+            throw new InvalidPasswordException("Usuário não encontrado ou senha antiga incorreta.");
+        }
+
+        User existingUser = optionalUser.get();
+        existingUser.setPassword(user.getPassword());
+        userRepository.save(existingUser);
+        return null;
     }
 }
 
