@@ -1,5 +1,6 @@
 package atv.api.apiuser.web.dto.mapper;
 
+import atv.api.apiuser.web.dto.UserPasswordUpdateRequestDto;
 import atv.api.apiuser.web.dto.UserRequestDto;
 import atv.api.apiuser.web.dto.UserResponseDto;
 import atv.api.apiuser.entity.User;
@@ -33,5 +34,14 @@ public class UserMapper {
         }
 
         return userResponseDto;
+    }
+
+    public User updateEntry(UserPasswordUpdateRequestDto userPasswordUpdateRequestDto){
+        User user = new User();
+        user.setName(userPasswordUpdateRequestDto.getName());
+        user.setOldPassword(userPasswordUpdateRequestDto.getOldPassword());
+        user.setPassword(userPasswordUpdateRequestDto.getNewPassword());
+
+        return user;
     }
 }

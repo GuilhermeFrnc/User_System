@@ -40,4 +40,7 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
+
+    @Transient
+    private String oldPassword;
 }
